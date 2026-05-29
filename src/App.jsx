@@ -41,7 +41,7 @@ const App = () => {
     const handleAdminLogin = (event) => {
         event.preventDefault();
 
-        // Beru hodnoty z formulare, React state tady neni potreba.
+        // Beru hodnoty z formulare
         const formData = new FormData(event.currentTarget);
         const login = formData.get('login');
         const password = formData.get('password');

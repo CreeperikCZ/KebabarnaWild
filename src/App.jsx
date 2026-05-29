@@ -88,11 +88,11 @@ const App = () => {
                     setActiveVenueId(nearestVenue.id);
                     alert(`Nejbližší kebab je: ${nearestVenue.name}! Mapa tě na něj teď navede.`);
                 } else {
-                    alert('Nenašel jsem žádný kebab se souřadnicemi.');
+                    alert('Chyba, nebyla nalezena žádná prodejna...');
                 }
             },
             () => {
-                alert('Nepodařilo se získat tvou polohu.');
+                alert('Nepodařilo se získat tvou polohu. Povol GPS v nastavení prohlížeče.');
             }
         );
     };
@@ -106,7 +106,7 @@ const App = () => {
                 </div>
                 <nav>
                     <button onClick={() => setView('map')}>Mapa</button>
-                    <button onClick={() => setView('compare')}>Porovnani</button>
+                    <button onClick={() => setView('compare')}>Porovnání</button>
                     <button onClick={() => setView('admin')}>Admin</button>
                     <button
                         onClick={handleFindNearestKebab}
@@ -114,7 +114,7 @@ const App = () => {
                     >
                         📍 Najít nejbližší!
                     </button>
-                    <button onClick={() => alert('Durum Kebab Review App v1.0\nChleb nebude!')}>O aplikaci</button>
+                    <button onClick={() => alert('Tato aplikace byla vytvořena se záměrem, usnadnit hledání dobrých kebabů. Zatím nemá backend, data jsou pouze testovací a nemají žádnou hodnotu. Vytvořil Jan Wild jako seminární práci na UUR (KIV-ZČU).')}>O aplikaci</button>
                 </nav>
             </header>
 
@@ -162,7 +162,7 @@ const App = () => {
             </main>
 
             <footer>
-                &copy; 2026 ZCU FAV - Semestralni prace KIV/UUR
+                &copy; Jan Wild - semestrální práce UUR, KIV ZČU
             </footer>
         </div>
     );

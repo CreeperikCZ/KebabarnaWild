@@ -1,9 +1,6 @@
-import { useState } from 'react';
 import database from '../data/kebabDatabase.json';
 
-const AdminPanel = ({ venues, setVenues }) => {
-    const [message, setMessage] = useState('');
-
+const AdminPanel = ({ venues, setVenues, onReviewVenue }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -13,11 +10,11 @@ const AdminPanel = ({ venues, setVenues }) => {
         // Vygenerujeme unikátní ID z názvu
         const id = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
 
-        // Vytvoříme prázdný podnik bez hodnocení - to dodají až uživatelé
+        // Vytvoříme prázdný podnik bez hodnocení
         const newVenue = {
             id: id || `kebab-${Date.now()}`,
             name: name,
-            category: "kebab", // Výchozí natvrdo nastavená kategorie
+            category: "kebab",
             city: "Plzeň",
             address: formData.get('address').trim(),
             coordinates: formData.get('lat') && formData.get('lng') ? {
@@ -25,7 +22,7 @@ const AdminPanel = ({ venues, setVenues }) => {
                 lng: Number(formData.get('lng'))
             } : null,
             size: null,
-            priceCzk: null, // Cena byla odebrána, nastavujeme výchozí prázdnou hodnotu
+            priceCzk: null,
             saladMeatRatio: null,
             spicy: 0,
             crispy: null,
@@ -39,15 +36,17 @@ const AdminPanel = ({ venues, setVenues }) => {
                     value: null
                 }
             },
-            reviews: [] // Úplně čisté pole bez importovaných recenzí
+            reviews: []
         };
 
         setVenues((currentVenues) => [...currentVenues, newVenue]);
 
         event.target.reset();
-        setMessage(`Podnik "${name}" byl úspěšně přidán do systému jako nový bez recenzí!`);
 
-        setTimeout(() => setMessage(''), 5000);
+        // Rovnou zavoláme přesměrování z App.jsx
+        if (onReviewVenue) {
+            onReviewVenue(newVenue.id);
+        }
     };
 
     return (
@@ -103,15 +102,6 @@ const AdminPanel = ({ venues, setVenues }) => {
                     <button type="submit">➕ Založit kebabárnu</button>
                 </div>
             </form>
-
-            {message && (
-                <p className="form-message" style={{ marginTop: '1rem', padding: '0.85rem', background: '#fffaf5', borderRadius: '6px', border: '1px solid var(--accent)' }}>
-                    ✅ {message} <br />
-                    <span style={{ fontWeight: 'normal', fontSize: '0.9rem', color: 'var(--muted)' }}>
-                        Nyní přepni na kartu "Recenze" a přidej tomuto podniku první reálné hodnocení.
-                    </span>
-                </p>
-            )}
         </section>
     );
 };

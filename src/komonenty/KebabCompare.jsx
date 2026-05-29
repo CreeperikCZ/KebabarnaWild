@@ -117,8 +117,9 @@ const KebabCompare = ({ venues, onReviewVenue }) => {
             </div>
 
             <div className="compare-cards">
-                {[leftVenue, rightVenue].map((venue) => (
-                    <article key={venue.id} className="compare-card">
+                {/* ZDE JE OPRAVA: Přidán index (i) do klíče, aby byly karty vždy unikátní */}
+                {[leftVenue, rightVenue].map((venue, i) => (
+                    <article key={`${venue.id}-${i}`} className="compare-card">
                         <span>{venue.address || 'Adresa neuvedena'}</span>
                         <h3>{venue.name}</h3>
                         <strong>{venue.rating?.overall ? `${venue.rating.overall} / 5` : 'Bez hodnocení'}</strong>

@@ -37,7 +37,7 @@ const KebabList = ({ venues, onAddReview, selectedVenueId }) => {
                 {/* 1. SEKCE: Výběr podniku a autor */}
                 <div className="review-form">
                     <label className="review-form-note">
-                        Vyber prodejnu *
+                        Vyber prodejnu (Adresa) *
                         <select name="venueId" defaultValue={initialVenueId} key={initialVenueId} required>
                             {venues.map((venue) => (
                                 <option key={venue.id} value={venue.id}>
@@ -52,31 +52,40 @@ const KebabList = ({ venues, onAddReview, selectedVenueId }) => {
                     </label>
                 </div>
 
-                {/* 2. SEKCE: Cena, maso a doplňky */}
+                {/* 2. SEKCE: Parametry kebabu (Cena, Velikost, Maso a doplňky) */}
                 <div className="review-form" style={{ marginTop: '0.5rem' }}>
                     <label>
-                        Aktuální cena (Kč) *
+                        Velikost
+                        <select name="size" defaultValue="Velký">
+                            <option value="Malý">Malý</option>
+                            <option value="Standardní">Standardní</option>
+                            <option value="Velký">Velký</option>
+                            <option value="Mega">Mega</option>
+                        </select>
+                    </label>
+                    <label>
+                        Cena (Kč) *
                         <input type="number" name="priceCzk" min="0" step="1" placeholder="Např. 150" required />
                     </label>
                     <label>
-                        Poměr maso/salát (0.0 až 1.0)
-                        <input type="number" name="saladMeatRatio" min="0" max="1" step="0.1" placeholder="0.5 = půl na půl" />
+                        Salát / Maso
+                        <input type="number" name="saladMeatRatio" min="0" max="1" step="0.1" placeholder="Např. 0.8" />
                     </label>
                     <label>
-                        Pálivost omáčky
-                        <select name="spicy" defaultValue="0">
+                        Křupavost
+                        <select name="crispy" defaultValue="Trochu jo">
+                            <option value="Ano">Ano</option>
+                            <option value="Trochu jo">Trochu jo</option>
+                            <option value="Ne">Ne</option>
+                        </select>
+                    </label>
+                    <label>
+                        Pálivost
+                        <select name="spicy" defaultValue="1">
                             <option value="0">Bez pálivosti (-)</option>
                             <option value="1">Jemně pálí (🌶️)</option>
                             <option value="2">Střední nálož (🌶️🌶️)</option>
                             <option value="3">Peklo / Ostré (🌶️🌶️🌶️)</option>
-                        </select>
-                    </label>
-                    <label>
-                        Křupavost
-                        <select name="crispy" defaultValue="-">
-                            <option value="Ano">Ano, křupavá</option>
-                            <option value="Trochu jo">Ano</option>
-                            <option value="Ne">Ne, bláto</option>
                         </select>
                     </label>
                 </div>
@@ -85,20 +94,16 @@ const KebabList = ({ venues, onAddReview, selectedVenueId }) => {
                 <h3 style={{ fontSize: '1.1rem', margin: '1.5rem 0 0.5rem', color: 'var(--accent-dark)' }}>Bodové hodnocení (1 = nejhorší, 5 = nejlepší)</h3>
                 <div className="review-form">
                     <label>
-                        Chuť jídla *
-                        <input type="number" name="taste" min="1" max="5" defaultValue="4" required />
+                        Cena / Velikost *
+                        <input type="number" name="value" min="1" max="5" defaultValue="4" required />
                     </label>
                     <label>
-                        Velikost porce *
-                        <input type="number" name="portion" min="1" max="5" defaultValue="4" required />
+                        Chuť *
+                        <input type="number" name="taste" min="1" max="5" defaultValue="4" required />
                     </label>
                     <label>
                         Obsluha a rychlost *
                         <input type="number" name="service" min="1" max="5" defaultValue="4" required />
-                    </label>
-                    <label>
-                        Cena / Výkon *
-                        <input type="number" name="value" min="1" max="5" defaultValue="4" required />
                     </label>
                 </div>
 

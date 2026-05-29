@@ -138,7 +138,7 @@ export default function KebabMap({ venues, selectedVenue, setSelectedVenue, onRe
                                 <dd>{selectedVenue.priceCzk ? `${selectedVenue.priceCzk} Kč` : 'Neuvedeno'}</dd>
                             </div>
                             <div>
-                                <dt>Křupavá houska:</dt>
+                                <dt>Křupavost (chleba/tortilla):</dt>
                                 <dd>{selectedVenue.crispy || 'Neuvedeno'}</dd>
                             </div>
                             <div>

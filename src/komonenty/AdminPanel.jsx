@@ -18,14 +18,14 @@ const AdminPanel = ({ venues, setVenues }) => {
             id: id || `kebab-${Date.now()}`,
             name: name,
             category: "kebab", // Výchozí natvrdo nastavená kategorie
-            city: "Plzen",
+            city: "Plzeň",
             address: formData.get('address').trim(),
             coordinates: formData.get('lat') && formData.get('lng') ? {
                 lat: Number(formData.get('lat')),
                 lng: Number(formData.get('lng'))
             } : null,
             size: null,
-            priceCzk: formData.get('priceCzk') ? Number(formData.get('priceCzk')) : null,
+            priceCzk: null, // Cena byla odebrána, nastavujeme výchozí prázdnou hodnotu
             saladMeatRatio: null,
             spicy: 0,
             crispy: null,
@@ -52,17 +52,13 @@ const AdminPanel = ({ venues, setVenues }) => {
 
     return (
         <section className="panel">
-            <h2>Admin panel</h2>
+            <h2>Administrační panel</h2>
 
             {/* Statistiky databáze */}
             <div className="database-summary">
                 <div>
                     <strong>Datový zdroj</strong>
                     <span>src/data/kebabDatabase.json</span>
-                </div>
-                <div>
-                    <strong>Schéma</strong>
-                    <span>v{database.schemaVersion}</span>
                 </div>
                 <div>
                     <strong>Podniky</strong>
@@ -79,15 +75,11 @@ const AdminPanel = ({ venues, setVenues }) => {
             <h3>Založit nový kebab (bez recenzí)</h3>
 
             <form onSubmit={handleSubmit}>
-                {/* 1. Řada: Základní info a cena */}
+                {/* 1. Řada: Základní info */}
                 <div className="review-form">
                     <label className="review-form-note">
                         Název prodejny *
                         <input type="text" name="name" placeholder="Např. Kebab u Rondelu" required />
-                    </label>
-                    <label>
-                        Základní cena (Kč)
-                        <input type="number" name="priceCzk" placeholder="Např. 150" min="0" />
                     </label>
                 </div>
 

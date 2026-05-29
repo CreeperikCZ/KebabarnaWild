@@ -163,23 +163,25 @@ footer {
 }
 
 /* ==========================================================================
-   UPRAVENÁ SEKCE PRO MAPU A SEZNAM (Aby to nelítalo)
+   SEKCE PRO MAPU A SEZNAM
    ========================================================================== */
 
 .map-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px; /* Mírně rozšířený sidebar pro lepší čitelnost */
+  grid-template-columns: minmax(0, 1fr) 340px;
   gap: 1rem;
-  height: 550px; /* Pevná výška, aby sidebar scroloval a mapa neutíkala dolů */
+  height: 550px;
 }
 
 .kebab-map {
-  height: 100%; /* Vyplní celou výšku layoutu */
+  height: 100%;
   min-height: 100%;
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
 }
+
+/* --- POPUP MAPY --- */
 
 .map-popup {
   display: grid;
@@ -189,38 +191,53 @@ footer {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.map-popup strong {
+.map-popup-name {
+  display: block;
   color: var(--accent-dark);
   font-size: 0.9rem;
 }
 
-.map-popup span {
+.map-popup-address {
+  display: block;
+  margin-bottom: 4px;
   color: var(--muted);
   font-size: 0.8rem;
 }
 
-.map-popup span:last-child {
+.map-popup-rating {
+  display: block;
+  margin-bottom: 8px;
   color: var(--text);
   font-weight: 700;
+  font-size: 0.8rem;
 }
+
+.map-popup-btn {
+  width: 100%;
+  padding: 6px 10px;
+  font-weight: bold;
+}
+
+/* --- SIDEBAR A SEZNAM --- */
 
 .map-sidebar {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   height: 100%;
-  overflow-y: auto; /* Scrolleje se pouze vnitřek sidebaru */
+  overflow-y: auto;
   padding-right: 0.2rem;
 }
 
-/* Seznam kebabů přímo v komponentě KebabMap */
 .venue-list {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 0;
+  gap: 8px;
+  padding: 10px;
   margin: 0;
   list-style: none;
+  flex: 1 1 auto;
+  overflow-y: auto;
 }
 
 .venue-list li {
@@ -231,65 +248,229 @@ footer {
   background: #fff;
 }
 
-/* Když je vybraný, obarvíme pozadí tlačítka i border */
 .venue-list li.is-selected {
   border-color: var(--accent);
   box-shadow: 0 0 0 2px rgba(211, 84, 0, 0.14);
 }
 
 .venue-list li.is-selected button {
-  background: #fff6ee; /* Jemný oranžový nádech */
+  background: #fff6ee;
 }
 
-.venue-list li.is-selected button strong {
+.venue-list li.is-selected .venue-list-name {
   color: var(--accent-dark);
 }
 
-/* Tlačítko reprezentující jeden kebab v seznamu */
-.venue-list button {
-  display: grid;
+.venue-list-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   width: 100%;
-  gap: 0.25rem;
-  padding: 0.85rem;
-  color: var(--text);
+  height: auto;
+  min-height: fit-content;
+  padding: 12px 16px;
+  gap: 4px;
+  box-sizing: border-box;
   text-align: left;
   background: #fff;
   border: none;
   border-radius: 0;
+  color: var(--text);
 }
 
-.venue-list button:hover {
+.venue-list-btn:hover {
   color: var(--text);
   background: #fff8f1;
 }
 
-.venue-list span {
-  color: var(--muted);
-  font-size: 0.9rem;
+.venue-list-item-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }
 
-/* Detail vybraného kebabu */
+.venue-list-name {
+  font-size: 1.1rem;
+}
+
+.venue-list-rating {
+  color: #e67e22;
+  font-weight: bold;
+}
+
+.venue-list-address {
+  color: #666;
+  font-size: 0.9rem;
+  display: block;
+  margin-top: 2px;
+}
+
+/* --- MALÝ DETAIL KEBABU V SIDEBARU --- */
+
 .venue-detail {
   padding: 1rem;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: #fffaf5;
-  position: sticky; /* Zůstane přišpendlený dole, když se scrolluje seznamem */
-  bottom: 0;
   box-shadow: 0 -4px 10px rgba(40, 31, 23, 0.03);
 }
 
-.venue-detail h3 {
-  margin: 0 0 0.8rem;
+.sidebar-detail {
+  position: sticky;
+  bottom: 0;
+  flex-shrink: 0;
+  border-top: 1px solid var(--border);
+}
+
+.venue-detail-title {
+  margin: 0 0 0.25rem 0;
   color: var(--accent-dark);
 }
 
-.venue-detail dl {
-  display: grid;
-  gap: 0.55rem;
+.venue-detail-address {
+  margin: 0 0 1rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.venue-detail-action {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* --- VELKÉ MODÁLNÍ OKNO (DETAIL) --- */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 550px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  color: var(--muted);
+  padding: 0;
+}
+
+.modal-title {
+  margin-top: 0;
+  padding-right: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--accent-dark);
+}
+
+.modal-address {
+  display: block;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.modal-subtitle {
+  margin: 0 0 0.5rem 0;
+  color: var(--accent-dark);
+}
+
+.modal-params {
+  margin: 0 0 1.5rem 0;
+}
+
+.param-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  gap: 1rem;
+}
+
+.param-row:last-child {
+  border-bottom: none;
+}
+
+.param-row dt {
+  font-weight: normal;
+  color: var(--muted);
+}
+
+.param-row dd {
+  margin: 0;
+  font-weight: bold;
+}
+
+.param-row dd.highlight-value {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.modal-reviews {
+  margin-bottom: 1.5rem;
+}
+
+.review-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   margin: 0;
 }
 
+.review-item {
+  font-size: 0.95rem;
+  background: #f9f9f9;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border-left: 3px solid var(--accent);
+}
+
+.review-author {
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
+
+/* ==========================================================================
+   OSTATNÍ (ADMIN, TABULKY, MOBILNÍ ZOBRAZENÍ)
+   ========================================================================== */
+
+/* Zachováno pro případné admin komponenty z dřívějška */
 .venue-detail dl div,
 .database-summary div {
   display: flex;
@@ -307,12 +488,6 @@ footer {
   font-weight: 700;
 }
 
-.venue-detail-action {
-  width: 100%;
-  margin-top: 1rem;
-}
-
-/* Souhrny v admin panelu / statistikách */
 .database-summary {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -341,7 +516,7 @@ footer {
 
   .map-layout {
     grid-template-columns: 1fr;
-    height: auto; /* Na mobilu se výška přizpůsobí obsahu pod sebou */
+    height: auto;
   }
 
   .kebab-map {

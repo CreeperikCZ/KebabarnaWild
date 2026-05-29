@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import KebabMap from './komonenty/KebabMap';
+import KebabMap from './komonenty/KebabMap'; // zkontroluj si případně překlep v názvu složky (komonenty vs komponenty)
 import KebabList from './komonenty/KebabList';
 import AdminPanel from './komonenty/AdminPanel';
 import KebabCompare from './komonenty/KebabCompare';
@@ -11,13 +11,9 @@ const App = () => {
     const [venues, setVenues] = useState(getInitialVenues);
     const [activeVenueId, setActiveVenueId] = useState(null);
     const [reviewVenueId, setReviewVenueId] = useState(null);
-
     // Admin login je jen jednoducha ochrana pro tuhle appku, neni to realne zabezpeceni serveru.
     const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
     const [adminLoginError, setAdminLoginError] = useState('');
-
-    // NOVÝ STAV: Pamatuje si, jestli se má na záložce recenzí ukázat popup po vytvoření nové prodejny.
-    const [showNewVenuePopup, setShowNewVenuePopup] = useState(false);
 
     const studentInfo = { name: 'Jan Wild', id: 'A25B0290P' };
 
@@ -31,10 +27,9 @@ const App = () => {
         setVenues((currentVenues) => addReviewToVenue(currentVenues, venueId, review));
     };
 
-    // UPRAVENO: Funkce nyní přijímá i to, jestli se jedná o novou prodejnu.
-    const handleReviewVenue = (venueId, isNew = false) => {
+    const handleReviewVenue = (venueId) => {
+        // Sem se jde z mapy nebo porovnani, aby byl formular rovnou na spravny kebab.
         setReviewVenueId(venueId);
-        setShowNewVenuePopup(isNew); // Zapne popup, pokud isNew je true
         setView('list');
     };
 
@@ -62,7 +57,6 @@ const App = () => {
         const dLng = lng1 - lng2;
         return Math.sqrt(dLat * dLat + dLng * dLng);
     };
-
     const handleFindNearestKebab = () => {
         // Prohlizec se nejdriv zepta uzivatele, jestli muze pouzit jeho polohu.
         if (!navigator.geolocation) {
@@ -130,48 +124,36 @@ const App = () => {
                         venues={venues}
                         activeVenueId={activeVenueId}
                         clearActiveVenue={() => setActiveVenueId(null)}
+                        // TADY JSOU TY NOVÉ ŘÁDKY PRO PROPOJENÍ DETAILŮ:
                         selectedVenue={venues.find(v => v.id === activeVenueId) || venues[0]}
                         setSelectedVenue={(venue) => setActiveVenueId(venue?.id || null)}
                         onReviewVenue={handleReviewVenue}
                     />
                 )}
-
                 {view === 'list' && (
                     <KebabList
                         venues={venues}
                         onAddReview={handleAddReview}
                         selectedVenueId={reviewVenueId}
-                        // PŘEDÁNÍ NOVÝCH PROPS DO LISTU
-                        showNewVenuePopup={showNewVenuePopup}
-                        closeNewVenuePopup={() => setShowNewVenuePopup(false)}
-                        // ZAJIŠTĚNÍ PŘESMĚROVÁNÍ ZPĚT NA MAPU PO ODESLÁNÍ RECENZE
-                        onNavigateToMap={() => setView('map')}
                     />
                 )}
-
                 {view === 'compare' && <KebabCompare venues={venues} onReviewVenue={handleReviewVenue} />}
-
                 {view === 'admin' && (
                     isAdminLoggedIn ? (
-                        <AdminPanel
-                            venues={venues}
-                            setVenues={setVenues}
-                            // Odsud voláme s "true", aby App věděla, že má ukázat popup
-                            onReviewVenue={(id) => handleReviewVenue(id, true)}
-                        />
+                        <AdminPanel venues={venues} setVenues={setVenues} />
                     ) : (
                         <section className="panel admin-login-panel">
-                            <h2>Admin přihlášení</h2>
+                            <h2>Admin prihlaseni</h2>
                             <form onSubmit={handleAdminLogin} className="admin-login-form">
                                 <label>
-                                    Jméno (admin)
-                                    <input type="text" placeholder="admin" name="login" autoComplete="username" required />
+                                    Jmeno
+                                    <input type="text" name="login" autoComplete="username" required />
                                 </label>
                                 <label>
-                                    Heslo (admin)
-                                    <input type="password" placeholder="admin" name="password" autoComplete="current-password" required />
+                                    Heslo
+                                    <input type="password" name="password" autoComplete="current-password" required />
                                 </label>
-                                <button type="submit">Přihlásit</button>
+                                <button type="submit">Prihlasit</button>
                             </form>
                             {adminLoginError && <p className="form-message">{adminLoginError}</p>}
                         </section>

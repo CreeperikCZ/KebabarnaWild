@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 3,
+  "updatedAt": "2026-05-17",
+  "city": "Plzen",
+  "source": "Zjednoduseny import top 5 prodejen",
+  "venues": [
+    {
+      "id": "ottoman",
+      "name": "Ottoman",
+      "category": "kebab",
+      "city": "Plzen",
+      "address": "Prazska 12",
+      "coordinates": {
+        "lat": 49.747877,
+        "lng": 13.379755
+      },
+      "reviews": [
+        {
+          "id": "review-ottoman-1",
+          "author": "Jan",
+          "date": "2026-05-17",
+          "priceCzk": 150,
+          "saladMeatRatio": 0.8,
+          "spicy": 1,
+          "crispy": "Ano",
+          "ratings": {
+            "taste": 5,
+            "portion": 5,
+            "service": 4,
+            "value": 5
+          },
+          "note": "Vyborny durum, maso skvele dochucene."
+        }
+      ]
+    },
+    {
+      "id": "antalya",
+      "name": "Antalya",
+      "category": "kebab",
+      "city": "Plzen",
+      "address": "Palackeho 1",
+      "coordinates": {
+        "lat": 49.746812,
+        "lng": 13.37324
+      },
+      "reviews": [
+        {
+          "id": "review-antalya-1",
+          "author": "Honnza",
+          "date": "2026-05-16",
+          "priceCzk": 190,
+          "saladMeatRatio": 0.1,
+          "spicy": 3,
+          "crispy": "Ano",
+          "ratings": {
+            "taste": 4,
+            "portion": 4,
+            "service": 4,
+            "value": 3
+          },
+          "note": "Dost ostre, ale houska krasne krupala. Trochu drazsi."
+        }
+      ]
+    },
+    {
+      "id": "alanya",
+      "name": "Alanya",
+      "category": "kebab",
+      "city": "Plzen",
+      "address": "Rooseveltova 7",
+      "coordinates": {
+        "lat": 49.74895,
+        "lng": 13.37812
+      },
+      "reviews": [
+        {
+          "id": "review-alanya-1",
+          "author": "Honza",
+          "date": "2026-05-15",
+          "priceCzk": 160,
+          "saladMeatRatio": 0.5,
+          "spicy": 2,
+          "crispy": "Ne",
+          "ratings": {
+            "taste": 4,
+            "portion": 4,
+            "service": 3,
+            "value": 4
+          },
+          "note": "Klasicky standard u namesti, neurazi ani nenadchne."
+        }
+      ]
+    },
+    {
+      "id": "kebab-house",
+      "name": "Kebab House",
+      "category": "kebab",
+      "city": "Plzen",
+      "address": "Klatovska 2836",
+      "coordinates": {
+        "lat": 49.73452,
+        "lng": 13.37311
+      },
+      "reviews": [
+        {
+          "id": "review-kebabhouse-1",
+          "author": "Honza",
+          "date": "2026-05-14",
+          "priceCzk": 155,
+          "saladMeatRatio": 0.5,
+          "spicy": 0,
+          "crispy": "Ano",
+          "ratings": {
+            "taste": 5,
+            "portion": 4,
+            "service": 5,
+            "value": 4
+          },
+          "note": "Velka porce a moc mila obsluha na Klatovske."
+        }
+      ]
+    },
+    {
+      "id": "ali-baba",
+      "name": "Ali baba",
+      "category": "kebab",
+      "city": "Plzen",
+      "address": "Parizska",
+      "coordinates": {
+        "lat": 49.74582,
+        "lng": 13.38125
+      },
+      "reviews": [
+        {
+          "id": "review-alibaba-1",
+          "author": "Honza",
+          "date": "2026-05-10",
+          "priceCzk": 140,
+          "saladMeatRatio": 0.5,
+          "spicy": 0,
+          "crispy": "Ne",
+          "ratings": {
+            "taste": 3,
+            "portion": 4,
+            "service": 4,
+            "value": 4
+          },
+          "note": "Prumerny kebab, neurazi, cena je fajn."
+        }
+      ]
+    }
+  ]
+}

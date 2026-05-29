@@ -1,0 +1,511 @@
+:root {
+  --bg: #f6f4ef;
+  --surface: #ffffff;
+  --text: #241f1a;
+  --muted: #655d55;
+  --accent: #d35400;
+  --accent-dark: #9f3f00;
+  --border: #e1d8cc;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  padding: 0.55rem 0.85rem;
+}
+
+button:hover {
+  background: var(--accent-dark);
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  background: #fff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.7rem;
+  text-align: left;
+}
+
+th {
+  color: var(--accent-dark);
+  background: #fff3e7;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  color: #fff;
+  background: var(--accent);
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.app-header p {
+  margin: 0.2rem 0 0;
+  color: #ffe7d1;
+}
+
+.app-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.app-header nav button {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+main {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 1.25rem;
+  flex: 1;
+}
+
+footer {
+  padding: 0.8rem;
+  color: var(--muted);
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.panel {
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 10px 24px rgba(40, 31, 23, 0.08);
+}
+
+.panel h2 {
+  margin-top: 0;
+}
+
+.panel form {
+  display: grid;
+  gap: 1rem;
+}
+
+.panel label {
+  display: grid;
+  gap: 0.4rem;
+  color: var(--muted);
+}
+
+.review-form {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.review-form-note {
+  grid-column: span 2;
+}
+
+.form-message {
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   UPRAVENÁ SEKCE PRO MAPU A SEZNAM (Aby to nelítalo)
+   ========================================================================== */
+
+.map-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px; /* Mírně rozšířený sidebar pro lepší čitelnost */
+  gap: 1rem;
+  height: 550px; /* Pevná výška, aby sidebar scroloval a mapa neutíkala dolů */
+}
+
+.kebab-map {
+  height: 100%; /* Vyplní celou výšku layoutu */
+  min-height: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.map-popup {
+  display: grid;
+  min-width: 150px;
+  gap: 0.2rem;
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.map-popup strong {
+  color: var(--accent-dark);
+  font-size: 0.9rem;
+}
+
+.map-popup span {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.map-popup span:last-child {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.map-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  overflow-y: auto; /* Scrolleje se pouze vnitřek sidebaru */
+  padding-right: 0.2rem;
+}
+
+/* Seznam kebabů přímo v komponentě KebabMap */
+.venue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.venue-list li {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Když je vybraný, obarvíme pozadí tlačítka i border */
+.venue-list li.is-selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(211, 84, 0, 0.14);
+}
+
+.venue-list li.is-selected button {
+  background: #fff6ee; /* Jemný oranžový nádech */
+}
+
+.venue-list li.is-selected button strong {
+  color: var(--accent-dark);
+}
+
+/* Tlačítko reprezentující jeden kebab v seznamu */
+.venue-list button {
+  display: grid;
+  width: 100%;
+  gap: 0.25rem;
+  padding: 0.85rem;
+  color: var(--text);
+  text-align: left;
+  background: #fff;
+  border: none;
+  border-radius: 0;
+}
+
+.venue-list button:hover {
+  color: var(--text);
+  background: #fff8f1;
+}
+
+.venue-list span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Detail vybraného kebabu */
+.venue-detail {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fffaf5;
+  position: sticky; /* Zůstane přišpendlený dole, když se scrolluje seznamem */
+  bottom: 0;
+  box-shadow: 0 -4px 10px rgba(40, 31, 23, 0.03);
+}
+
+.venue-detail h3 {
+  margin: 0 0 0.8rem;
+  color: var(--accent-dark);
+}
+
+.venue-detail dl {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+}
+
+.venue-detail dl div,
+.database-summary div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.venue-detail dt,
+.database-summary span {
+  color: var(--muted);
+}
+
+.venue-detail dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.venue-detail-action {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* Souhrny v admin panelu / statistikách */
+.database-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.database-summary div {
+  flex-direction: column;
+  padding: 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fffaf5;
+}
+
+/* Mobilní zobrazení */
+@media (max-width: 768px) {
+  .app-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .app-header nav {
+    justify-content: flex-start;
+  }
+
+  .map-layout {
+    grid-template-columns: 1fr;
+    height: auto; /* Na mobilu se výška přizpůsobí obsahu pod sebou */
+  }
+
+  .kebab-map {
+    height: 380px;
+    min-height: 380px;
+  }
+
+  .map-sidebar {
+    max-height: 450px;
+  }
+
+  .database-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Oprava velikosti ikon Leafletu */
+.leaflet-marker-icon {
+  width: 25px !important;
+  height: 41px !important;
+}
+.leaflet-marker-shadow {
+  width: 41px !important;
+  height: 41px !important;
+}
+
+/* Porovnani prodejen */
+.compare-panel {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.compare-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+  gap: 1rem;
+  align-items: start;
+}
+
+.compare-header h2 {
+  margin-bottom: 0.35rem;
+}
+
+.compare-header p,
+.compare-empty {
+  margin: 0;
+  color: var(--muted);
+}
+
+.compare-selectors {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.compare-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.compare-card {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fffaf5;
+}
+
+.compare-card h3 {
+  margin: 0;
+  color: var(--accent-dark);
+}
+
+.compare-card span,
+.compare-card small {
+  color: var(--muted);
+}
+
+.compare-card strong {
+  font-size: 1.5rem;
+  color: var(--accent);
+}
+
+.compare-card-action {
+  margin-top: 0.35rem;
+}
+
+.compare-table-wrap {
+  overflow-x: auto;
+}
+
+.compare-table {
+  min-width: 720px;
+}
+
+.compare-table td.is-winner {
+  color: var(--accent-dark);
+  font-weight: 800;
+  background: #fff8f1;
+}
+
+.compare-ranking-title {
+  margin: 0;
+  color: var(--accent-dark);
+}
+
+.compare-ranking {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding-left: 1.4rem;
+}
+
+.compare-ranking li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.compare-ranking li::marker {
+  color: var(--accent-dark);
+  font-weight: 800;
+}
+
+.compare-ranking span {
+  font-weight: 700;
+}
+
+.compare-ranking strong {
+  color: var(--accent-dark);
+}
+
+.compare-ranking button {
+  padding: 0.4rem 0.65rem;
+}
+
+.admin-login-panel {
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+.admin-login-form {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .compare-header,
+  .compare-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .compare-ranking strong {
+    display: block;
+    margin-top: 0.2rem;
+  }
+
+  .compare-ranking li {
+    grid-template-columns: 1fr;
+  }
+}

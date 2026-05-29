@@ -72,10 +72,10 @@ const KebabList = ({ venues, onAddReview, selectedVenueId }) => {
                         </select>
                     </label>
                     <label>
-                        Křupavost housky/chleba
-                        <select name="crispy" defaultValue="Trochu jo">
+                        Křupavost
+                        <select name="crispy" defaultValue="-">
                             <option value="Ano">Ano, křupavá</option>
-                            <option value="Trochu jo">Trochu jo</option>
+                            <option value="Trochu jo">Ano</option>
                             <option value="Ne">Ne, bláto</option>
                         </select>
                     </label>

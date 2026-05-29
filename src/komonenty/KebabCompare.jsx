@@ -3,8 +3,8 @@ import { formatPeppers } from '../data/kebabRepository';
 
 const metricDefinitions = [
     // Tady mam seznam veci, ktere chci mezi dvema podniky porovnavat.
-    { key: 'overall', label: 'Celkove hodnoceni', suffix: ' / 5', higherIsBetter: true },
-    { key: 'taste', label: 'Chut jidla', suffix: ' / 5', higherIsBetter: true },
+    { key: 'overall', label: 'Celkové hodnocení', suffix: ' / 5', higherIsBetter: true },
+    { key: 'taste', label: 'Chuť jídla', suffix: ' / 5', higherIsBetter: true },
     { key: 'portion', label: 'Velikost porce', suffix: ' / 5', higherIsBetter: true },
     { key: 'service', label: 'Obsluha a rychlost', suffix: ' / 5', higherIsBetter: true },
     { key: 'value', label: 'Cena / vykon', suffix: ' / 5', higherIsBetter: true },
